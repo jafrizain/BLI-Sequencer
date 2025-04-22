@@ -35,7 +35,7 @@ camera.configure(preview_config)
 
 camera.set_controls({
 
-    "ExposureTime": int(exposure_time * (1 * 10^6)),
+    "ExposureTime": int(exposure_time * (1 * 10**6)),
     "AeEnable": False,
     "AwbEnable": False,
     "AnalogueGain": 1,          # Analog gain
@@ -49,7 +49,7 @@ camera.start()
 
 r = camera.switch_mode_capture_request_and_stop(capture_config)
 r.save("main", file_name + ".jpg")
-r.save_dng(file_name + ".dng")
+r.save_dng(file_name)
 
 camera.stop()
 

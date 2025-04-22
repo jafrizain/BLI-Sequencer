@@ -194,7 +194,7 @@ class SchedulerGUI(QWidget):
             stdin, stdout, stderr = self.ssh_tunnel.exec_command(directory)
             stdout.channel.recv_exit_status()  # Wait until it's done
             for i in range(repetitions):
-                filename = f"{root_name}_{mode.lower()}_{i}.jpg"
+                filename = f"{root_name}_{mode.lower()}_{i}"
                 remote_path = f"~/Captures/{root_name}/{filename}"
                 print(mode)
                 print(value)
@@ -213,7 +213,9 @@ class SchedulerGUI(QWidget):
                 # Fetch file immediately
                 try:
                     with SCPClient(self.ssh_tunnel.get_transport()) as scp:
-                        scp.get(remote_path, self.save_folder)
+                        scp.get(remote_path + ".jpg", self.save_folder)
+                        scp.get(remote_path + ".dng", self.save_folder)
+                        
                 except Exception as scp_error:
                     QMessageBox.warning(self, "Transfer Error", f"Failed to fetch {filename}: {scp_error}")
 
